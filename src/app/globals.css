@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* SCROLLBAR STYLING  */
+/* Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 10px; /* by default the scrollbar is 16px wide */
+}
+
+::-webkit-scrollbar-track {
+  background: #0f1015; /* track is entire scrollbar - set color to transparent */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rbga(
+    255,
+    255,
+    255,
+    0.1
+  ); /* thumb is enteractive element on the track - set color to transparent */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2); /* set color to transparent */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0f1015 rgba(255, 255, 255, 0.1);
+}
