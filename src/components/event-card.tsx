@@ -1,4 +1,5 @@
 import { EventoEvent } from "@/lib/types";
+import Image from "next/image";
 
 type EventCardProps = {
   event: EventoEvent;
@@ -17,10 +18,39 @@ type EventCardProps = {
 // }
 
 export default function EventCard({ event }: EventCardProps) {
+  // get day of the month with leading 0
+  const dayOfMonth = new Date(event.date).toLocaleString("en-US", {
+    day: "2-digit",
+  });
+  const month = new Date(event.date).toLocaleString("en-US", {
+    month: "short",
+  });
   return (
-    <div>
-      <h2>{event.name}</h2>
-      <p>{new Date(event.date).toISOString()}</p>
-    </div>
+    // control image height with CSS capping height at 60%  and width at 100% to maintain aspect ratio
+    // rounded-xl for rounded corners and use overflow-hidden to prevent image from not having rounded corners at top of the card
+    // flex-1 to make card take 1 portion of the available space but allowed to grow to max-width of 500px
+    // basis will set minimum width of the card
+    <section className="relative flex flex-col flex-1 basis-80 h-[380px] max-w-[500px] bg-white/[3%] rounded-xl overflow-hidden ">
+      {/* height and width used to prevent layout shift */}
+      <Image
+        src={event.imageUrl}
+        alt={event.name}
+        height={280}
+        width={500}
+        className="h-[60%] object-fill w-full"
+      />
+      {/* items-center for horizontal centring */}
+      {/* justify-center for vertical centering */}
+      <div className="flex flex-col flex-grow items-center justify-center">
+        <h2 className="text-2xl font-semibold">{event.name}</h2>
+        <p className="italic text-white/75">By {event.organizerName}</p>
+        <p className="italic text-white/50 mt-4">{event.location}</p>
+      </div>
+      {/* position date at top left corner of the card */}
+      <section className="absolute flex flex-col justify-center items-center left-[12px] top-[12px] h-[45px] w-[45px] bg-black/30 rounded-md">
+        <p className="text-xl font-bold -mb-[5px]">{dayOfMonth}</p>
+        <p className="text-xs uppercase text-accent">{month}</p>
+      </section>
+    </section>
   );
 }
