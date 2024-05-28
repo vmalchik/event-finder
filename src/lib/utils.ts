@@ -27,3 +27,8 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+// NextJS will cache pages by default in the browser. This function helps demo the loading state.
+export async function sleep(ms: number = 1000) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
