@@ -28,6 +28,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const capitalizeFirstLetter = (word: string) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
+
 // NextJS will cache pages by default in the browser. This function helps demo the loading state.
 export async function sleep(ms: number = 1000) {
   return new Promise((resolve) => setTimeout(resolve, ms));

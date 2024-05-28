@@ -1,15 +1,12 @@
 import EventsList from "@/components/events-list";
 import H1 from "@/components/h1";
 import { EventoEvent } from "@/lib/types";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 type EventsPageProps = {
   params: {
     city: "all" | string;
   };
-};
-
-const capitalizeFirstLetter = (word: string) => {
-  return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
 // params is anything that comes after the city in the URL /events/[city]
