@@ -36,14 +36,34 @@ export default function EventCard({ event }: EventCardProps) {
       href={`/event/${event.slug}`}
     >
       <section className="flex flex-col relative w-full h-full bg-white/[3%] rounded-xl overflow-hidden">
-        {/* height and width used to prevent layout shift */}
-        <Image
+        {/* Notes: */}
+        {/* 216 - height and width used to prevent layout shift */}
+        {/* https://www.youtube.com/watch?v=XL3gth5Bmjw */}
+
+        {/* Original */}
+        {/* <Image
           src={event.imageUrl}
           alt={event.name}
           height={280}
           width={500}
           className="h-[60%] w-auto object-cover"
-        />
+        /> */}
+
+        {/* New */}
+        {/* div will take care of image sizing */}
+        {/* fill sets absolute positioning on the image */}
+        <div className="relative w-full h-[60%]">
+          <Image
+            fill
+            src={event.imageUrl}
+            alt={event.name}
+            className="object-cover"
+            // When the viewport width is 758 pixels or less. The image will be 100% of the viewport width.
+            // When the viewport width is 1120 pixels or less. The image will be 50% of the viewport width.
+            // When the viewport width is 1280 pixels or greater. The image will be 33% of the viewport width.
+            sizes="(max-width: 758px) 100vw, (max-width: 1120px) 50vw, 33vw"
+          />
+        </div>
         {/* items-center for horizontal centring */}
         {/* justify-center for vertical centering */}
         <div className="flex flex-col flex-1 items-center justify-center">
