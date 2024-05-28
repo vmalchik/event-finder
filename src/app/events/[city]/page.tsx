@@ -1,7 +1,8 @@
-import EventsList from "@/components/events-list";
 import H1 from "@/components/h1";
-import { EventoEvent } from "@/lib/types";
+import EventsListContainer from "@/components/events-list-container";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 type EventsPageProps = {
   params: {
@@ -15,18 +16,6 @@ export default async function EventsPage({ params }: EventsPageProps) {
   const lowercasedCity = city.toLocaleLowerCase();
   const capitalizedCity = capitalizeFirstLetter(city);
 
-  // data fetched on server side since this is a server component
-  // benefits:
-  // - better SEO
-  // - faster initial load time
-  // - data is fetched on the server and not the client
-  // - data is not exposed to the client
-  // - data is not bundled with the client improving performance
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${lowercasedCity}`
-  );
-  const events: EventoEvent[] = await response.json();
-
   return (
     <main className="flex flex-col items-center py-24 px-[20px]">
       <H1 className={"mb-28"}>
@@ -34,7 +23,10 @@ export default async function EventsPage({ params }: EventsPageProps) {
           ? "All Events"
           : `Events in  ${capitalizedCity}`}
       </H1>
-      <EventsList events={events} />
+      <Suspense fallback={<Loading />}>
+        {/* stream-in results into the page */}
+        <EventsListContainer city={lowercasedCity} />
+      </Suspense>
     </main>
   );
 }
