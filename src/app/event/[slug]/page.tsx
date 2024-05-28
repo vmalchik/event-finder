@@ -62,11 +62,40 @@ export default async function EventPage({ params }: EventPageProps) {
             </button>
           </div>
         </div>
-        {/* <h2>About this event</h2>
-        <p>{event.description}</p>
-        <h3>Location</h3>
-        <p>{event.location}</p> */}
       </section>
+      <div className="min-h-[75vh] text-center px-5 py-16">
+        <Section>
+          <SectionHeading>About this event</SectionHeading>
+          <SectionContent>{event.description}</SectionContent>
+        </Section>
+
+        <Section>
+          <SectionHeading>Location</SectionHeading>
+          <SectionContent>{event.location}</SectionContent>
+        </Section>
+      </div>
     </main>
   );
 }
+
+type SectionProps = {
+  children: React.ReactNode;
+};
+
+const Section = ({ children }: SectionProps) => {
+  return <section className="mb-12">{children}</section>;
+};
+
+const SectionHeading = ({ children }: SectionProps) => {
+  return <h2 className="text-2xl mb-8">{children}</h2>;
+};
+
+const SectionContent = ({ children }: SectionProps) => {
+  // leading - space between lines
+  // tracking - space between characters
+  return (
+    <p className="text-lg leading-8 text-white/75 max-w-4xl mx-auto">
+      {children}
+    </p>
+  );
+};
