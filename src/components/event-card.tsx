@@ -1,24 +1,30 @@
+"use client";
+
 import { EventoEvent } from "@/lib/types";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 
 type EventCardProps = {
   event: EventoEvent;
 };
 
-// const event ={
-//   id: 1,
-//   name: 'DJ Practice Session',
-//   slug: 'dj-practice-session',
-//   city: 'Austin',
-//   location: 'Austin Music Hall',
-//   date: '2030-10-12T00:00:00.000Z',
-//   organizerName: 'DJ Inc.',
-//   imageUrl: 'https://images.unsplash.com/photo-1642178225043-f299072af862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=100',
-//   description: "Join us for an immersive DJ practice session at the DJ Beats Workshop! Whether you're a beginner aspiring to spin the decks or an experienced DJ looking to refine your skills, this event is tailored just for you. Dive into the world of beats, mixes, and electronic rhythms under the guidance of seasoned DJs and music producers. Showcase your skills during our open decks session. Share your favorite tracks, experiment with live remixing, and receive applause and feedback from a supportive audience."
-// }
+const MotionLink = motion(Link);
 
 export default function EventCard({ event }: EventCardProps) {
+  const ref = useRef(null);
+  // scrollYProgress allows us to measure how far we've scrolled relative to the target element
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    // 0 1   - when top of the target meets the top of the viewport thats when animation should start
+    // 1.5 1 - when bottom of the target meets the bottom of the viewport thats when animation should end
+    offset: ["0 1", "1.5 1"],
+  });
+
+  const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
+  const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+
   // get day of the month with leading 0
   const dayOfMonth = new Date(event.date).toLocaleString("en-US", {
     day: "2-digit",
@@ -31,9 +37,18 @@ export default function EventCard({ event }: EventCardProps) {
     // rounded-xl for rounded corners and use overflow-hidden to prevent image from not having rounded corners at top of the card
     // flex-1 to make card take 1 portion of the available space but allowed to grow to max-width of 500px
     // basis will set minimum width of the card
-    <Link
+    <MotionLink
+      ref={ref}
       className="flex-1 basis-80 h-[380px] max-w-[500px] state-effects"
       href={`/event/${event.slug}`}
+      style={{
+        // @ts-ignore
+        scale: scaleProgress,
+        // @ts-ignore
+        opacity: opacityProgress,
+      }}
+      // fix initial framer-motion animation display issue when data renders
+      initial={{ scale: 0.8, opacity: 0 }}
     >
       <section className="flex flex-col relative w-full h-full bg-white/[3%] rounded-xl overflow-hidden">
         {/* Notes: */}
@@ -77,6 +92,6 @@ export default function EventCard({ event }: EventCardProps) {
           <p className="text-xs uppercase text-accent">{month}</p>
         </section>
       </section>
-    </Link>
+    </MotionLink>
   );
 }
