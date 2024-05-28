@@ -42,6 +42,7 @@ export default function EventCard({ event }: EventCardProps) {
       className="flex-1 basis-80 h-[380px] max-w-[500px] state-effects"
       href={`/event/${event.slug}`}
       style={{
+        // TypeScript cannot infer that this is a Link component due to framer-motion wrapping it
         // @ts-ignore
         scale: scaleProgress,
         // @ts-ignore
