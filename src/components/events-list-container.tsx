@@ -1,6 +1,6 @@
 import React from "react";
 import EventsList from "./events-list";
-import { EventoEvent } from "@/lib/types";
+import { EventoEvent } from "@prisma/client";
 import { getEvents } from "@/lib/utils";
 
 type EventListContainerProps = {

@@ -1,4 +1,86 @@
+# Prisma
+
+## Create SQLite Database
+
+```sh
+ npx prisma init --datasource-provider sqlite
+```
+
+✔ Your Prisma schema was created at prisma/schema.prisma
+You can now open it in your favorite editor.
+
+warn You already have a .gitignore file. Don't forget to add `.env` in it to not commit any private information.
+
+Next steps:
+
+1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
+2. Run prisma db pull to turn your database schema into a Prisma schema.
+3. Run prisma generate to generate the Prisma Client. You can then start querying your database.
+
+More information in our documentation:
+https://pris.ly/d/getting-started
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Add model to `schema.prisma`
+
+```prisma
+model EventoEvent {
+  id            Int      @id @default(autoincrement())
+  name          String
+  slug          String   @unique
+  city          String
+  location      String
+  date          DateTime
+  organizerName String
+  imageUrl      String
+  description   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+```
+
+## Push model (table) into prisma SQLite Database
+
+```sh
+npx prisma db push
+```
+
+SQLite database dev.db created at file:./dev.db
+✔ Generated Prisma Client (v5.6.0) to ./node_modules/@prisma/client in 95ms
+
+## View data in SQLite Database
+
+```sh
+npx prisma studio
+```
+
+Opens database: http://localhost:5555/
+
+## Seed data into SQLite Database
+
+- Create `seed.ts` file with data to seed along with `main()` function to seed it
+- Preform following prerequisite steps to run prisma seed script
+
+  - Install `ts-node` package
+
+    ```sh
+        npm i ts-node
+    ```
+
+  - Update `package.json`
+
+    ```json
+    "prisma": {
+        "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    },
+    ```
+
+- Seed database
+
+```sh
+    npx prisma db seed
+```
 
 ## Getting Started
 

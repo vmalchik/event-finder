@@ -1,5 +1,4 @@
-import { EventoEvent } from "@/lib/types";
-import React from "react";
+import { EventoEvent } from "@prisma/client";
 import EventCard from "./event-card";
 
 type EventsListProps = {
