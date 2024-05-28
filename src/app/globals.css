@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CUSTOM GLOBAL STYLES */
+.state-effects {
+  @apply transition hover:scale-105 active:scale-[1.02] cursor-pointer;
+}
+
 /* SCROLLBAR STYLING  */
 /* Chrome, Edge, and Safari */
 ::-webkit-scrollbar {

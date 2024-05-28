@@ -32,17 +32,17 @@ export default function EventCard({ event }: EventCardProps) {
     // flex-1 to make card take 1 portion of the available space but allowed to grow to max-width of 500px
     // basis will set minimum width of the card
     <Link
-      className="flex-1 basis-80 h-[380px] max-w-[500px]"
+      className="flex-1 basis-80 h-[380px] max-w-[500px] state-effects"
       href={`/event/${event.slug}`}
     >
-      <section className="flex flex-col relative w-full h-full bg-white/[3%] rounded-xl overflow-hidden transition hover:scale-105 active:scale-[1.02] cursor-pointer">
+      <section className="flex flex-col relative w-full h-full bg-white/[3%] rounded-xl overflow-hidden">
         {/* height and width used to prevent layout shift */}
         <Image
           src={event.imageUrl}
           alt={event.name}
           height={280}
           width={500}
-          className="h-[60%] object-fill w-full"
+          className="h-[60%] w-auto object-cover"
         />
         {/* items-center for horizontal centring */}
         {/* justify-center for vertical centering */}
