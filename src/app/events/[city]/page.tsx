@@ -12,7 +12,7 @@ type Props = {
 };
 
 // NextJS function to generate metadata for the page
-export function generateMetadata({ params }: Props) {
+export function generateMetadata({ params }: Props): Metadata {
   const { city } = params;
   const capitalizedCity = capitalize(city);
   const metadata: Metadata = {
