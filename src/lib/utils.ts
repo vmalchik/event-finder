@@ -28,7 +28,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const capitalizeFirstLetter = (word: string) => {
+export const capitalize = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 

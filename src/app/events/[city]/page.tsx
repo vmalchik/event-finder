@@ -1,20 +1,31 @@
 import H1 from "@/components/h1";
 import EventsListContainer from "@/components/events-list-container";
-import { capitalizeFirstLetter } from "@/lib/utils";
+import { capitalize } from "@/lib/utils";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { Metadata } from "next";
 
-type EventsPageProps = {
+type Props = {
   params: {
     city: "all" | string;
   };
 };
 
+// NextJS function to generate metadata for the page
+export function generateMetadata({ params }: Props) {
+  const { city } = params;
+  const capitalizedCity = capitalize(city);
+  const metadata: Metadata = {
+    title: `${city === "all" ? "All Events" : `Events in ${capitalizedCity}`}`,
+  };
+  return metadata;
+}
+
 // params is anything that comes after the city in the URL /events/[city]
-export default async function EventsPage({ params }: EventsPageProps) {
+export default async function EventsPage({ params }: Props) {
   const { city } = params;
   const lowercasedCity = city.toLocaleLowerCase();
-  const capitalizedCity = capitalizeFirstLetter(city);
+  const capitalizedCity = capitalize(city);
 
   return (
     <main className="flex flex-col items-center py-24 px-[20px]">
