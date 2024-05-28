@@ -1,5 +1,6 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { EventoEvent } from "./types";
 
 /**
  * Combines multiple class names into a single string, resolving conflicts using Tailwind Merge.
@@ -35,4 +36,27 @@ export const capitalize = (word: string) => {
 // NextJS will cache pages by default in the browser. This function helps demo the loading state.
 export async function sleep(ms: number = 1000) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function getEvents(city: string) {
+  const response = await fetch(
+    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`
+    // {
+    //   next: {
+    //     revalidate: MAX_REVALIDATION_WAIT_TIME, // NextJS feature to revalidate the data every 5 minutes
+    //   },
+    //   // cache: "no-cache", // NextJS feature to disable server side caching for this request
+    // }
+  );
+  const events: EventoEvent[] = await response.json();
+  return events;
+}
+
+export async function getEvent(slug: string) {
+  const response = await fetch(
+    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
+  );
+
+  const event: EventoEvent = await response.json();
+  return event;
 }
