@@ -51,10 +51,8 @@ export default async function EventsPage({
   // // Extract page from searchParams or default to 1 if undefined, 0, or not a valid number
   // const page =
   //   pageString && parseInt(pageString, 10) > 0 ? parseInt(pageString, 10) : 1;
-  console.log("pageString", pageString);
   const parsedPage = pageNumberSchema.safeParse(pageString);
   if (!parsedPage.success) {
-    console.log("parsedPage.error", parsedPage.error);
     throw new Error("Invalid page number");
   }
   const page = parsedPage.data ?? 1;
