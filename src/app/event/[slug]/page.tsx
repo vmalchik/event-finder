@@ -20,6 +20,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return metadata;
 }
 
+// NextJS used with dynamic routes to pre-render pages at build time (e.g. because certain pages are popular)
+// This will generate static pages for the most popular [event] pages
+export async function generateStaticParams() {
+  return [
+    {
+      slug: "comedy-extravaganza",
+    },
+    {
+      slug: "dj-practice-session",
+    },
+  ];
+}
+
 export default async function EventPage({ params }: Props) {
   const { slug } = params;
   const event: EventoEvent = await getEvent(slug);
