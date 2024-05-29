@@ -12,7 +12,7 @@ type EventListContainerProps = {
 
 export default async function EventListContainer({
   city,
-  page,
+  page = 1,
 }: EventListContainerProps) {
   // data fetched on server side since this is a server component
   // benefits:
@@ -27,11 +27,9 @@ export default async function EventListContainer({
   return (
     <>
       <EventsList events={events} />
-      {page && (
-        <div className="w-full max-w-[1100px] px-[20px] mt-10">
-          <PaginationControls page={page} maxPages={maxPages} />
-        </div>
-      )}
+      <div className="w-full max-w-[1100px] px-[20px] mt-10">
+        <PaginationControls page={page} maxPages={maxPages} />
+      </div>
     </>
   );
 }

@@ -4,7 +4,7 @@ import { capitalize } from "@/lib/utils";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Metadata } from "next";
-import PaginationControls from "@/components/pagination-contorls";
+import { z } from "zod";
 
 type Props = {
   params: {
@@ -26,6 +26,16 @@ export function generateMetadata({ params }: Props): Metadata {
   return metadata;
 }
 
+// Helper function to transform null to undefined
+const nullToUndefined = z
+  .any()
+  .transform((val) => (val === null ? undefined : val));
+
+// Define the schema with null-to-undefined transformation
+const pageNumberSchema = nullToUndefined.pipe(
+  z.coerce.number().int().positive().optional()
+);
+
 // params is anything that comes after the city in the URL /events/[city]
 export default async function EventsPage({
   params,
@@ -38,10 +48,16 @@ export default async function EventsPage({
     searchParams as Record<string, string>
   );
   const pageString = urlSearchParams.get("page");
-  // Extract page from searchParams or default to 1 if undefined, 0, or not a valid number
-  const page =
-    pageString && parseInt(pageString, 10) > 0 ? parseInt(pageString, 10) : 1;
-
+  // // Extract page from searchParams or default to 1 if undefined, 0, or not a valid number
+  // const page =
+  //   pageString && parseInt(pageString, 10) > 0 ? parseInt(pageString, 10) : 1;
+  console.log("pageString", pageString);
+  const parsedPage = pageNumberSchema.safeParse(pageString);
+  if (!parsedPage.success) {
+    console.log("parsedPage.error", parsedPage.error);
+    throw new Error("Invalid page number");
+  }
+  const page = parsedPage.data ?? 1;
   const lowercasedCity = city.toLocaleLowerCase();
   const capitalizedCity = capitalize(city);
 

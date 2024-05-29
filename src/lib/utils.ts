@@ -4,6 +4,7 @@ import { EventoEvent } from "@prisma/client";
 import prisma from "./db";
 import { notFound } from "next/navigation";
 import { EventoResponse } from "./types";
+import { MAX_EVENTO_RECORDS_PER_PAGE } from "./constants";
 
 /**
  * Combines multiple class names into a single string, resolving conflicts using Tailwind Merge.
@@ -41,7 +42,6 @@ export async function sleep(ms: number = 1000) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const MAX_RECORDS_PER_PAGE = 6;
 export async function getEvents(
   city: string,
   page = 1
@@ -53,8 +53,8 @@ export async function getEvents(
       city: normalizedCity,
     },
     orderBy: { date: "asc" },
-    take: MAX_RECORDS_PER_PAGE,
-    skip: (page - 1) * MAX_RECORDS_PER_PAGE,
+    take: MAX_EVENTO_RECORDS_PER_PAGE,
+    skip: (page - 1) * MAX_EVENTO_RECORDS_PER_PAGE,
   });
 
   const totalCount = await prisma.eventoEvent.count({
