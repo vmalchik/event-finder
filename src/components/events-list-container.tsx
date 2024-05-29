@@ -3,6 +3,7 @@ import EventsList from "./events-list";
 import { getEvents } from "@/lib/server-utils";
 import PaginationControls from "./pagination-controls";
 import { EventoResponse } from "@/lib/types";
+import NoEvents from "./no-events-found";
 import { MAX_EVENTO_RECORDS_PER_PAGE } from "@/lib/constants";
 
 type EventListContainerProps = {
@@ -26,10 +27,15 @@ export default async function EventListContainer({
   const maxPages = Math.ceil(totalCount / MAX_EVENTO_RECORDS_PER_PAGE);
   return (
     <>
-      <EventsList events={events} />
-      <div className="w-full max-w-[1100px] px-[20px] mt-10">
-        <PaginationControls page={page} maxPages={maxPages} />
-      </div>
+      {events.length === 0 && <NoEvents />}
+      {events.length > 0 && (
+        <>
+          <EventsList events={events} />
+          <div className="w-full max-w-[1100px] px-[20px] mt-10">
+            <PaginationControls page={page} maxPages={maxPages} />
+          </div>
+        </>
+      )}
     </>
   );
 }
