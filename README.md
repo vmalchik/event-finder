@@ -82,6 +82,11 @@ Opens database: http://localhost:5555/
     npx prisma db seed
 ```
 
+## Usage of PrismaClient
+
+- Use `db.ts` to create single instance of PrismaClient
+- Use global PrismaClient to interact with database
+
 ## Getting Started
 
 First, run the development server:

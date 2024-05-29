@@ -1,6 +1,7 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { EventoEvent } from "./types";
+import { EventoEvent } from "@prisma/client";
+import prisma from "./db";
 
 /**
  * Combines multiple class names into a single string, resolving conflicts using Tailwind Merge.
@@ -39,24 +40,32 @@ export async function sleep(ms: number = 1000) {
 }
 
 export async function getEvents(city: string) {
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`
-    // {
-    //   next: {
-    //     revalidate: MAX_REVALIDATION_WAIT_TIME, // NextJS feature to revalidate the data every 5 minutes
-    //   },
-    //   // cache: "no-cache", // NextJS feature to disable server side caching for this request
-    // }
-  );
-  const events: EventoEvent[] = await response.json();
+  // const response = await fetch(
+  //   `https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`
+  //   // {
+  //   //   next: {
+  //   //     revalidate: MAX_REVALIDATION_WAIT_TIME, // NextJS feature to revalidate the data every 5 minutes
+  //   //   },
+  //   //   // cache: "no-cache", // NextJS feature to disable server side caching for this request
+  //   // }
+  // );
+  // const events: EventoEvent[] = await response.json();
+  // using undefined will allow us to fetch all events
+  const normalizedCity = city === "all" ? undefined : capitalize(city);
+  const events: EventoEvent[] = await prisma.eventoEvent.findMany({
+    where: { city: normalizedCity },
+  });
   return events;
 }
 
 export async function getEvent(slug: string) {
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
-  );
+  // const response = await fetch(
+  //   `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
+  // );
 
-  const event: EventoEvent = await response.json();
+  // const event: EventoEvent = await response.json();
+  const event: EventoEvent = await prisma.eventoEvent.findUnique({
+    where: { slug },
+  });
   return event;
 }
