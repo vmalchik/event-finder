@@ -1,0 +1,1 @@
+export const MAX_EVENTO_RECORDS_PER_PAGE = 6;

@@ -4,11 +4,16 @@ import { capitalize } from "@/lib/utils";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Metadata } from "next";
+import PaginationControls from "@/components/pagination-contorls";
 
 type Props = {
   params: {
     city: "all" | string;
   };
+};
+
+type EventsPageProps = Props & {
+  searchParams: Record<string, string | string[] | undefined>;
 };
 
 // NextJS function to generate metadata for the page
@@ -22,8 +27,21 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 // params is anything that comes after the city in the URL /events/[city]
-export default async function EventsPage({ params }: Props) {
+export default async function EventsPage({
+  params,
+  searchParams,
+}: EventsPageProps) {
   const { city } = params;
+
+  // Create a new instance of URLSearchParams with searchParams
+  const urlSearchParams = new URLSearchParams(
+    searchParams as Record<string, string>
+  );
+  const pageString = urlSearchParams.get("page");
+  // Extract page from searchParams or default to 1 if undefined, 0, or not a valid number
+  const page =
+    pageString && parseInt(pageString, 10) > 0 ? parseInt(pageString, 10) : 1;
+
   const lowercasedCity = city.toLocaleLowerCase();
   const capitalizedCity = capitalize(city);
 
@@ -34,9 +52,10 @@ export default async function EventsPage({ params }: Props) {
           ? "All Events"
           : `Events in  ${capitalizedCity}`}
       </H1>
-      <Suspense fallback={<Loading />}>
+      {/* pass key to suspense to trigger loading indicator */}
+      <Suspense key={`${city}_${page}`} fallback={<Loading />}>
         {/* stream-in results into the page */}
-        <EventsListContainer city={lowercasedCity} />
+        <EventsListContainer city={lowercasedCity} page={page} />
       </Suspense>
     </main>
   );
