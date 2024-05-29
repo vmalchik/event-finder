@@ -1,6 +1,6 @@
 import React from "react";
 import EventsList from "./events-list";
-import { getEvents } from "@/lib/utils";
+import { getEvents } from "@/lib/server-utils";
 import PaginationControls from "./pagination-controls";
 import { EventoResponse } from "@/lib/types";
 import { MAX_EVENTO_RECORDS_PER_PAGE } from "@/lib/constants";
