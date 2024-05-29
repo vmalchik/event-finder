@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = params;
   const event: EventoEvent = await getEvent(slug);
   const metadata: Metadata = {
-    title: `Event: ${event.name}`,
+    title: `Event: ${event?.name}`,
   };
   return metadata;
 }

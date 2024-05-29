@@ -2,6 +2,7 @@ import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { EventoEvent } from "@prisma/client";
 import prisma from "./db";
+import { notFound } from "next/navigation";
 
 /**
  * Combines multiple class names into a single string, resolving conflicts using Tailwind Merge.
@@ -53,7 +54,10 @@ export async function getEvents(city: string) {
   // using undefined will allow us to fetch all events
   const normalizedCity = city === "all" ? undefined : capitalize(city);
   const events: EventoEvent[] = await prisma.eventoEvent.findMany({
-    where: { city: normalizedCity },
+    where: {
+      city: normalizedCity,
+    },
+    orderBy: { date: "asc" },
   });
   return events;
 }
@@ -64,8 +68,12 @@ export async function getEvent(slug: string) {
   // );
 
   // const event: EventoEvent = await response.json();
-  const event: EventoEvent = await prisma.eventoEvent.findUnique({
+  const event: EventoEvent | null = await prisma.eventoEvent.findUnique({
     where: { slug },
   });
+
+  if (!event) {
+    return notFound();
+  }
   return event;
 }
