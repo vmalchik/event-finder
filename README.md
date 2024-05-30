@@ -2,6 +2,8 @@
 
 Welcome to the Event Finder web application! This project helps users find events in specific cities, making it easier to explore and enjoy various activities. Below you'll find detailed information about the features, tech stack, and how to get started with the project.
 
+[![Watch the video](app_preview.png)](https://youtu.be/6GHVFSZg3rM)
+
 ## Features
 
 - **Search Field**: Users can enter the name of a city to find events happening there.
@@ -13,8 +15,6 @@ Welcome to the Event Finder web application! This project helps users find event
 - **Next.js**: The React framework used for building the frontend and server-side rendering.
 - **Vercel**: The platform used for deploying the web application.
 - **Prisma/Postgres**: The database used for storing event data and other related information.
-
-[![Watch the video](app_preview.png)](https://youtu.be/pMbCnkourL4)
 
 ## Features
 
