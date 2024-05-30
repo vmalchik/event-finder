@@ -1,8 +1,9 @@
 import H1 from "@/components/h1";
 import { EventoEvent } from "@prisma/client";
-import { getEvent } from "@/lib/server-utils";
+import { getEvent, getEvents } from "@/lib/server-utils";
 import { Metadata } from "next";
 import Image from "next/image";
+import { EventoResponse } from "@/lib/types";
 
 type Props = {
   params: {
@@ -22,17 +23,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // NextJS used with dynamic routes to pre-render pages at build time (e.g. because certain pages are popular)
 // This will generate static pages for the most popular [event] pages
+// export async function generateStaticParams() {
+//   return [
+//     {
+//       slug: "comedy-extravaganza",
+//     },
+//     {
+//       slug: "dj-practice-session",
+//     },
+//   ];
+// }
+
+// Note: For static page generation you will encounter following error during `npm run build`
+// Error: Page "/events/[city]" is missing "generateStaticParams()" so it cannot be used with "output: export" config.
+// Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
-  return [
-    {
-      slug: "comedy-extravaganza",
-    },
-    {
-      slug: "dj-practice-session",
-    },
-  ];
+  const response: EventoResponse = await getEvents("all");
+  const { events } = response;
+  return events.map((event) => ({ slug: event.slug }));
 }
 
+// export default async function EventPage({ event }: PageProps) {
 export default async function EventPage({ params }: Props) {
   const { slug } = params;
   const event: EventoEvent = await getEvent(slug);

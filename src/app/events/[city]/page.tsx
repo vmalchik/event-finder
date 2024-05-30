@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import { Metadata } from "next";
 import { z } from "zod";
+import { EventoResponse } from "@/lib/types";
+import { getEvents } from "@/lib/server-utils";
 
 type Props = {
   params: {
@@ -15,6 +17,12 @@ type Props = {
 type EventsPageProps = Props & {
   searchParams: Record<string, string | string[] | undefined>;
 };
+
+export async function generateStaticParams() {
+  const response: EventoResponse = await getEvents("all");
+  const { events } = response;
+  return events.map((event) => ({ city: event.city }));
+}
 
 // NextJS function to generate metadata for the page
 export function generateMetadata({ params }: Props): Metadata {

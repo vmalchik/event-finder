@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: "export",
+  output: "export",
+  // https://nextjs.org/docs/app/building-your-application/deploying/static-exports#image-optimization
   images: {
     remotePatterns: [
       {
