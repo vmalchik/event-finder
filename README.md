@@ -20,14 +20,11 @@ _(Right-click and select "Open link in new tab" to watch the video in a new tab.
 
 ## Features
 
-This application is designed specifically for developers who work remotely and are looking for job opportunities anywhere in the world. With our user-friendly interface, you can easily search for remote job openings, sort them by relevance or recent postings, bookmark your favorite jobs, and get detailed job descriptions and salary information.
+This application is designed for users who want to find events happening in various cities. With our user-friendly interface, you can effortlessly discover events based on your preferences and location.
 
-- **Search Input Field**: Quickly find remote job opportunities by entering keywords, job titles, or companies.
-- **Job Cards**: View a list of job postings presented as cards, each containing key information about the job.
-- **Sort Options**: Sort job listings by relevance or recent postings to find the most suitable opportunities.
-- **Bookmark Jobs**: Save jobs that interest you for easy access later.
-- **Job Overview**: Click on job cards to get an overview of the job description, salary, and other important details.
-- **Caching**: Enjoy faster load times and improved performance with optimized caching system, which stores frequently accessed data locally.
+Search Field: Users can enter the name of a city to find events happening there.
+Popular Cities Links: Quick links to popular cities that people often search for, allowing easy access to event information in those locations.
+Specific Event Details: Users can look into specific events to get detailed information about the event, such as date, time, location, and description.
 
 ## Getting Started
 
