@@ -47,13 +47,3 @@ export const getEvent = unstable_cache(async (slug: string) => {
   }
   return event;
 });
-// export async function getEvent(slug: string) {
-//   const event: EventoEvent | null = await prisma.eventoEvent.findUnique({
-//     where: { slug },
-//   });
-
-//   if (!event) {
-//     return notFound();
-//   }
-//   return event;
-// }

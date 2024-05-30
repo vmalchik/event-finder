@@ -7,7 +7,6 @@ const routes = [
 ];
 
 export default function Footer() {
-  // push footer to the bottom of the page
   return (
     <footer className="mt-auto flex justify-between items-center border-t border-white/10 h-16 px-3 sm:px-9 text-xs text-white/25">
       <small className="text-xs">&copy; 2050 VM. All rights reserved.</small>

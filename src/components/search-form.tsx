@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function SearchForm() {
   const [searchText, setSearchText] = useState("");
-  const router = useRouter(); // important - import from next/navigation
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -10,7 +10,6 @@ type Props = {
   };
 };
 
-// NextJS function to generate metadata for the page
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = params;
   const event: EventoEvent = await getEvent(slug);
@@ -20,8 +19,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return metadata;
 }
 
-// NextJS used with dynamic routes to pre-render pages at build time (e.g. because certain pages are popular)
-// This will generate static pages for the most popular [event] pages
 export async function generateStaticParams() {
   return [
     {
@@ -46,12 +43,6 @@ export default async function EventPage({ params }: Props) {
   return (
     <main>
       <section className="relative overflow-hidden flex justify-center items-center py-14 md:py-20">
-        {/* fill ensures the image fills the container */}
-        {/* srcSet ensures the image optimization and responsiveness */}
-        {/* need to specify how large image will be on different view-ports */}
-        {/* use foreground image in background image but blurred to create a good effect that matches design style and color */}
-        {/* take up 100% of view-port for screen-sizes up to 1280; max image size to be 1280px for view-ports wider than 1280px */}
-        {/* quality prop helps further optimize loading and displaying the image. since we blur the image we can lower the quality */}
         <Image
           fill
           // priority - image is not critical to the page load
@@ -111,8 +102,6 @@ const SectionHeading = ({ children }: SectionProps) => {
 };
 
 const SectionContent = ({ children }: SectionProps) => {
-  // leading - space between lines
-  // tracking - space between characters
   return (
     <p className="text-lg leading-8 text-white/75 max-w-4xl mx-auto">
       {children}

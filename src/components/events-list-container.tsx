@@ -15,13 +15,6 @@ export default async function EventListContainer({
   city,
   page = 1,
 }: EventListContainerProps) {
-  // data fetched on server side since this is a server component
-  // benefits:
-  // - better SEO
-  // - faster initial load time
-  // - data is fetched on the server and not the client
-  // - data is not exposed to the client
-  // - data is not bundled with the client improving performance
   const response: EventoResponse = await getEvents(city, page);
   const { events, totalCount } = response;
   const maxPages = Math.ceil(totalCount / MAX_EVENTO_RECORDS_PER_PAGE);

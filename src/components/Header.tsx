@@ -14,7 +14,6 @@ const routes = [
 export default function Header() {
   const activePathname = usePathname();
   return (
-    // mobile first design; specify mobile classes first (e.g. px-3 then sm:px-9)
     <header className="flex justify-between items-center border-b border-white/10 h-14 px-3 sm:px-9">
       <Logo />
       <nav className="h-full">
