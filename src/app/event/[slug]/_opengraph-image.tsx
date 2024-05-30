@@ -11,7 +11,8 @@ import { ImageResponse } from "next/og";
 //   height: 630,
 // };
 
-// Does not appear to work
+// Does not appear to work. Note: re-name file back to test.
+// See: https://www.davegray.codes/posts/automate-open-graph-images-nextjs
 
 export const contentType = "image/png";
 
