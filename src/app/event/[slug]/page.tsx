@@ -54,11 +54,12 @@ export default async function EventPage({ params }: Props) {
         />
         <div className="relative z-1 flex flex-col lg:flex-row gap-6 lg:gap-x-14">
           <Image
+            priority
             src={event.imageUrl}
             alt={event.name}
             width={300}
-            height={201}
-            className="rounded-xl border-white/50 border-2 object-cover"
+            height={200}
+            className="rounded-xl border-white/50 border-2 object-cover max-w-[300px] max-h-[200px]"
           />
           <div className="flex flex-col">
             <p className="text-white/75">{eventDate}</p>

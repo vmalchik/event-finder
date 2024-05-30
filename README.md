@@ -82,6 +82,12 @@ Opens database: http://localhost:5555/
     npx prisma db seed
 ```
 
+- Drop database
+
+```sh
+  rm prisma/dev.db
+```
+
 ## Usage of PrismaClient
 
 - Use `db.ts` to create single instance of PrismaClient
