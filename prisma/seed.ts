@@ -33,8 +33,8 @@ const events = [
     id: 3,
     name: "3D Animation Workshop",
     slug: "3d-animation-workshop",
-    city: "San Francisco ",
-    location: "Moscone Center",
+    city: "San Francisco",
+    location: "San Francisco Moscone Center",
     date: "2030-12-08T00:00:00.000Z",
     organizerName: "3D Animators Inc.",
     imageUrl:
