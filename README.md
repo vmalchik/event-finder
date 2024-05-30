@@ -7,6 +7,7 @@ Create [Vercel Storage](https://www.prisma.io/docs/orm/more/development-environm
 - Storage pulls records from .env.local
 - Prisma uses .env
   - Use [dotenv](https://www.npmjs.com/package/dotenv-cli) to work with .env.local ([documentation](https://www.prisma.io/docs/orm/more/development-environment/environment-variables/managing-env-files-and-setting-variables#manage-env-files-manually))
+  - Add Postgres secrets into Vercel linked project Settings > Environment Variables
 
 ## Add model
 
