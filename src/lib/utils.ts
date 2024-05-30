@@ -32,6 +32,13 @@ export const capitalize = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
+export const capitalizeWords = (sentence: string) => {
+  return sentence
+    .split(" ")
+    .map((word) => capitalize(word))
+    .join(" ");
+};
+
 // NextJS will cache pages by default in the browser. This function helps demo the loading state.
 export async function sleep(ms: number = 1000) {
   return new Promise((resolve) => setTimeout(resolve, ms));

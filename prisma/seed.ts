@@ -20,8 +20,8 @@ const events = [
     id: 2,
     name: "Harmony Festival",
     slug: "harmony-festival",
-    city: "Austin",
-    location: "Austin Convention Center",
+    city: "San Jose",
+    location: "San Jose Convention Center",
     date: "2030-11-15T00:00:00.000Z",
     organizerName: "Music Enthusiasts LLC",
     imageUrl:
@@ -33,8 +33,8 @@ const events = [
     id: 3,
     name: "3D Animation Workshop",
     slug: "3d-animation-workshop",
-    city: "Austin",
-    location: "Austin Convention Center",
+    city: "San Francisco ",
+    location: "Moscone Center",
     date: "2030-12-08T00:00:00.000Z",
     organizerName: "3D Animators Inc.",
     imageUrl:

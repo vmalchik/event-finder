@@ -1,112 +1,71 @@
-# Prisma
+# Event Finder Application
 
-## Vercel Storage: Postgres
+Welcome to the Event Finder web application! This project helps users find events in specific cities, making it easier to explore and enjoy various activities. Below you'll find detailed information about the features, tech stack, and how to get started with the project.
 
-Create [Vercel Storage](https://www.prisma.io/docs/orm/more/development-environment/environment-variables/managing-env-files-and-setting-variables#manage-env-files-manually) with Postgres
+## Features
 
-- Storage pulls records from .env.local
-- Prisma uses .env
-  - Use [dotenv](https://www.npmjs.com/package/dotenv-cli) to work with .env.local ([documentation](https://www.prisma.io/docs/orm/more/development-environment/environment-variables/managing-env-files-and-setting-variables#manage-env-files-manually))
-  - Add Postgres secrets into Vercel linked project Settings > Environment Variables
+- **Search Field**: Users can enter the name of a city to find events happening there.
+- **Popular Cities Links**: Quick links to popular cities that people often search for, allowing easy access to event information in those locations.
+- **Specific Event Details**: Users can look into specific events to get detailed information about the event, such as date, time, location, and description.
 
-## Add model
+## Tech Stack
 
-```prisma
-model EventoEvent {
-  id            Int      @id @default(autoincrement())
-  name          String
-  slug          String   @unique
-  city          String
-  location      String
-  date          DateTime
-  organizerName String
-  imageUrl      String
-  description   String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-```
+- **Next.js**: The React framework used for building the frontend and server-side rendering.
+- **Vercel**: The platform used for deploying the web application.
+- **Prisma/Postgres**: The database used for storing event data and other related information.
 
-## Push model (table) into database
+[![Watch the video](app_preview.png)](https://youtu.be/pMbCnkourL4)
 
-```sh
-dotenv -e .env.local -- npx prisma db push
-```
+## Features
 
-## View data in database
+This application is designed specifically for developers who work remotely and are looking for job opportunities anywhere in the world. With our user-friendly interface, you can easily search for remote job openings, sort them by relevance or recent postings, bookmark your favorite jobs, and get detailed job descriptions and salary information.
 
-```sh
-dotenv -e .env.local -- npx prisma studio
-```
-
-Opens database: http://localhost:5555/
-
-## Seed data into database
-
-- Create `seed.ts` file with data to seed along with `main()` function to seed it
-- Preform following prerequisite steps to run prisma seed script
-
-  - Install `ts-node` package
-
-    ```sh
-    npm i ts-node
-    ```
-
-  - Update `package.json`
-
-    ```json
-    "prisma": {
-        "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
-    },
-    ```
-
-- Seed database
-
-```sh
-dotenv -e .env.local -- npx prisma db seed
-```
-
-## Vercel Caching and Prisma
-
-- Vercel caches dependencies until they change to enable faster builds but causes Prisma Client to become out of sync with database schema.
-- Solution: Update package.json with [postinstall script](https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/vercel-caching-issue)
-
-## Usage of PrismaClient
-
-- Use `db.ts` to create single instance of PrismaClient
-- Use global PrismaClient to interact with database
+- **Search Input Field**: Quickly find remote job opportunities by entering keywords, job titles, or companies.
+- **Job Cards**: View a list of job postings presented as cards, each containing key information about the job.
+- **Sort Options**: Sort job listings by relevance or recent postings to find the most suitable opportunities.
+- **Bookmark Jobs**: Save jobs that interest you for easy access later.
+- **Job Overview**: Click on job cards to get an overview of the job description, salary, and other important details.
+- **Caching**: Enjoy faster load times and improved performance with optimized caching system, which stores frequently accessed data locally.
 
 ## Getting Started
 
-First, run the development server:
+Before you begin, ensure you have the latest version of Node.js installed. This project uses Node.js 20.x or later.
 
-```bash
+### Installation
+
+1. Clone the repository
+
+   ```sh
+   git clone git@github.com:vmalchik/event-finder.git
+   cd event-finder
+   ```
+
+2. Install dependencies
+
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Setup with [Postgres or SQLite](./docs/db.md)
+
+### Running the Application
+
+To start the development server, run:
+
+```sh
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and navigate to http://localhost:3000/ to see the application in action.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```sh
+npm run build
+# or
+yarn build
+```

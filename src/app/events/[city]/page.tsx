@@ -1,6 +1,6 @@
 import H1 from "@/components/h1";
 import EventsListContainer from "@/components/events-list-container";
-import { capitalize } from "@/lib/utils";
+import { capitalize, capitalizeWords } from "@/lib/utils";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Metadata } from "next";
@@ -41,6 +41,8 @@ export default async function EventsPage({
   searchParams,
 }: EventsPageProps) {
   const { city } = params;
+  // Decode the parameter to handle spaces and other encoded characters
+  const decodedCity = decodeURIComponent(city || "");
 
   const urlSearchParams = new URLSearchParams(
     searchParams as Record<string, string>
@@ -51,15 +53,15 @@ export default async function EventsPage({
     throw new Error("Invalid page number");
   }
   const page = parsedPage.data ?? 1;
-  const lowercasedCity = city.toLocaleLowerCase();
-  const capitalizedCity = capitalize(city);
+  const lowercasedCity = decodedCity.toLocaleLowerCase();
+  const capitalizedCity = capitalizeWords(decodedCity);
 
   return (
     <main className="flex flex-col items-center py-24 px-[20px]">
       <H1 className={"mb-28"}>
         {lowercasedCity === "all"
           ? "All Events"
-          : `Events in  ${capitalizedCity}`}
+          : `Events in ${capitalizedCity}`}
       </H1>
       <Suspense key={`${city}_${page}`} fallback={<Loading />}>
         <EventsListContainer city={lowercasedCity} page={page} />

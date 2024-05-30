@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { MAX_EVENTO_RECORDS_PER_PAGE } from "./constants";
 import prisma from "./db";
 import { EventoResponse } from "./types";
-import { capitalize } from "./utils";
 
 // fetch API by default caches results in "data cache" so network requests are optimized and not repeated (can be opted-out of)
 // we lose this when we use the Prisma ORM to fetch data; by default Prisma does not cache results
@@ -15,10 +14,13 @@ import { capitalize } from "./utils";
 export const getEvents = unstable_cache(
   async (city: string, page = 1): Promise<EventoResponse> => {
     // using undefined will allow us to fetch all events
-    const normalizedCity = city === "all" ? undefined : capitalize(city);
+    const normalizedCity = city === "all" ? undefined : city;
     const events: EventoEvent[] = await prisma.eventoEvent.findMany({
       where: {
-        city: normalizedCity,
+        city: {
+          contains: normalizedCity,
+          mode: "insensitive",
+        },
       },
       orderBy: { date: "asc" },
       take: MAX_EVENTO_RECORDS_PER_PAGE,
@@ -27,7 +29,10 @@ export const getEvents = unstable_cache(
 
     const totalCount = await prisma.eventoEvent.count({
       where: {
-        city: normalizedCity,
+        city: {
+          contains: normalizedCity,
+          mode: "insensitive",
+        },
       },
     });
     return {
