@@ -1,8 +1,10 @@
-# Event Finder Application
+# Event Finder
 
 Welcome to the Event Finder web application! This project helps users find events in specific cities, making it easier to explore and enjoy various activities. Below you'll find detailed information about the features, tech stack, and how to get started with the project.
 
 [![Watch the video](app_preview.png)](https://youtu.be/6GHVFSZg3rM)
+
+_(Right-click and select "Open link in new tab" to watch the video in a new tab.)_
 
 ## Features
 
