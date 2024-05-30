@@ -1,28 +1,14 @@
 # Prisma
 
-## Create SQLite Database
+## Vercel Storage: Postgres
 
-```sh
- npx prisma init --datasource-provider sqlite
-```
+Create [Vercel Storage](https://www.prisma.io/docs/orm/more/development-environment/environment-variables/managing-env-files-and-setting-variables#manage-env-files-manually) with Postgres
 
-✔ Your Prisma schema was created at prisma/schema.prisma
-You can now open it in your favorite editor.
+- Storage pulls records from .env.local
+- Prisma uses .env
+  - Use [dotenv](https://www.npmjs.com/package/dotenv-cli) to work with .env.local ([documentation](https://www.prisma.io/docs/orm/more/development-environment/environment-variables/managing-env-files-and-setting-variables#manage-env-files-manually))
 
-warn You already have a .gitignore file. Don't forget to add `.env` in it to not commit any private information.
-
-Next steps:
-
-1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
-2. Run prisma db pull to turn your database schema into a Prisma schema.
-3. Run prisma generate to generate the Prisma Client. You can then start querying your database.
-
-More information in our documentation:
-https://pris.ly/d/getting-started
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Add model to `schema.prisma`
+## Add model
 
 ```prisma
 model EventoEvent {
@@ -40,24 +26,21 @@ model EventoEvent {
 }
 ```
 
-## Push model (table) into prisma SQLite Database
+## Push model (table) into database
 
 ```sh
-npx prisma db push
+dotenv -e .env.local -- npx prisma db push
 ```
 
-SQLite database dev.db created at file:./dev.db
-✔ Generated Prisma Client (v5.6.0) to ./node_modules/@prisma/client in 95ms
-
-## View data in SQLite Database
+## View data in database
 
 ```sh
-npx prisma studio
+dotenv -e .env.local -- npx prisma studio
 ```
 
 Opens database: http://localhost:5555/
 
-## Seed data into SQLite Database
+## Seed data into database
 
 - Create `seed.ts` file with data to seed along with `main()` function to seed it
 - Preform following prerequisite steps to run prisma seed script
@@ -65,7 +48,7 @@ Opens database: http://localhost:5555/
   - Install `ts-node` package
 
     ```sh
-        npm i ts-node
+    npm i ts-node
     ```
 
   - Update `package.json`
@@ -79,14 +62,13 @@ Opens database: http://localhost:5555/
 - Seed database
 
 ```sh
-    npx prisma db seed
+dotenv -e .env.local -- npx prisma db seed
 ```
 
-- Drop database
+## Vercel Caching and Prisma
 
-```sh
-  rm prisma/dev.db
-```
+- Vercel caches dependencies until they change to enable faster builds but causes Prisma Client to become out of sync with database schema.
+- Solution: Update package.json with [postinstall script](https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/vercel-caching-issue)
 
 ## Usage of PrismaClient
 
